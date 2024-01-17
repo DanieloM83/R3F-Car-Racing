@@ -2,12 +2,20 @@ import { useLoader } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { MeshReflectorMaterial } from "@react-three/drei";
 import { TextureLoader } from "three";
+import { usePlane } from "@react-three/cannon";
 
 const Ground = () => {
   const alphaMap = useLoader(TextureLoader, "textures/ground_alpha.png");
   const aoMap = useLoader(TextureLoader, "textures/ground_ao.png");
-
   const gridMap = useLoader(TextureLoader, "textures/grid.png");
+
+  const [ref] = usePlane(
+    () => ({
+      type: "Static",
+      rotation: [-Math.PI / 2, 0, 0],
+    }),
+    useRef(null)
+  );
 
   const gridRef = useRef(null);
   const groundRef = useRef(null);
