@@ -6,7 +6,7 @@ import Car from "./Car";
 import Ground from "./Ground";
 import Track from "./Track";
 
-const debug = true;
+const debug = false;
 
 const Scene = () => {
   const sceneContent = (
@@ -22,7 +22,13 @@ const Scene = () => {
     </Suspense>
   );
 
-  const sceneDebug = <Debug>{sceneContent}</Debug>;
+  const sceneDebug = (
+    <>
+      <axesHelper args={[40, 40]} position={[0, 0.2, 0]} />
+      <gridHelper args={[80, 80]} position={[0, 0.1, 0]} />
+      <Debug>{sceneContent}</Debug>
+    </>
+  );
 
   return debug ? sceneDebug : sceneContent;
 };
