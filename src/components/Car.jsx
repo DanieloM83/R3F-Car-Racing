@@ -1,11 +1,12 @@
 import { useBox, useRaycastVehicle } from "@react-three/cannon";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { useLoader } from "@react-three/fiber";
+import { useFrame, useLoader } from "@react-three/fiber";
 import { useRef } from "react";
 import useWheels from "./useWheels";
 import useControls from "./useControls";
+import { Quaternion, Vector3 } from "three";
 
-const Car = () => {
+const Car = ({ cameraView }) => {
   // children: [CarBody, WheelRF, WheelLF, WheelLB, WheelRB]
   const result = useLoader(GLTFLoader, "models/car.glb").scene;
 
@@ -40,6 +41,33 @@ const Car = () => {
   );
 
   useControls(vehicleApi, chassisApi);
+
+  useFrame((state) => {
+    if (cameraView == 0) return;
+
+    let position = new Vector3(0, 0, 0);
+    position.setFromMatrixPosition(chassisBody.current.matrixWorld);
+
+    let quaternion = new Quaternion(0, 0, 0, 0);
+    quaternion.setFromRotationMatrix(chassisBody.current.matrixWorld);
+
+    const forwardVector = new Vector3(0, 0.45, 0.5);
+    forwardVector.applyQuaternion(quaternion);
+
+    let delta = new Vector3(0, 0.5, 0);
+    let target = position;
+
+    if (cameraView == 1) delta = new Vector3(0, 2, -5);
+    if (cameraView == 2) delta = new Vector3(0, 2, 5);
+    if (cameraView == 3) target = position.clone().add(forwardVector);
+
+    delta.applyQuaternion(quaternion);
+
+    let cameraPosition = position.clone().add(delta.clone());
+
+    state.camera.position.copy(cameraPosition);
+    state.camera.lookAt(target);
+  });
 
   return (
     <group ref={vehicle} name="vehicle">

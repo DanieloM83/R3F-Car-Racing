@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 const useControls = (vehicleApi, chassisApi) => {
-  // KeyW, KeyA, KeyS, KeyD, LeftShift
+  // KeyW, KeyA, KeyS, KeyD, LeftShift, Space, KeyR
   let [controls, setControls] = useState({});
 
   useEffect(() => {
@@ -64,6 +64,13 @@ const useControls = (vehicleApi, chassisApi) => {
       for (let i = 0; i < 4; i++) {
         vehicleApi.setSteeringValue(0, i);
       }
+    }
+
+    if (controls.KeyR) {
+      chassisApi.position.set(-10, 1, -3);
+      chassisApi.velocity.set(0, 0, 0);
+      chassisApi.angularVelocity.set(0, 0, 0);
+      chassisApi.rotation.set(0, Math.PI / 2, 0);
     }
   });
 };
