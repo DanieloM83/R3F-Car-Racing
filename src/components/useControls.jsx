@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { Vector3 } from "three";
 
 const useControls = (vehicleApi, chassisApi) => {
   // KeyW, KeyA, KeyS, KeyD, LeftShift, Space, KeyR
@@ -72,6 +73,11 @@ const useControls = (vehicleApi, chassisApi) => {
       chassisApi.angularVelocity.set(0, 0, 0);
       chassisApi.rotation.set(0, Math.PI / 2, 0);
     }
+
+    if (controls.ArrowRight) chassisApi.applyLocalImpulse([-0.6, -6, 0], [-0.6, 0, 0]);
+    if (controls.ArrowDown) chassisApi.applyLocalImpulse([0, -6, -1.4], [0, 0, -1.4]);
+    if (controls.ArrowLeft) chassisApi.applyLocalImpulse([0.6, -6, 0], [0.6, 0, 0]);
+    if (controls.ArrowUp) chassisApi.applyLocalImpulse([0, -6, 1.4], [0, 0, 1.4]);
   });
 };
 

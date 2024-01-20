@@ -33,7 +33,7 @@ const Barrel = ({ position, rotation }) => {
     () => ({
       allowSleep: false,
       args: [radius, radius, height, 16],
-      mass: 5,
+      mass: 10,
       rotation,
       position,
     }),

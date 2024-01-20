@@ -1,13 +1,14 @@
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useLoader } from "@react-three/fiber";
 import ColliderBox from "./ColliderBox";
+import Ramp from "./Ramp";
 
 const Track = () => {
   const result = useLoader(GLTFLoader, "models/track.glb").scene;
 
   return (
     <>
-      <primitive object={result}></primitive>
+      <primitive object={result} />
       {/* Trees: */}
       <ColliderBox position={[-2.8, 0, 9.55]} rotation={[0, Math.PI / 4, 0]} />
       <ColliderBox position={[-4.15, 0, 11.9]} rotation={[0, Math.PI / 3, 0]} />
@@ -55,6 +56,8 @@ const Track = () => {
       <ColliderBox position={[-20.33, 0, -2.83]} scale={[0.25, 2.6, 0.8]} rotation={[0, -Math.PI / 6, 0]} />
       <ColliderBox position={[-20.4, 0, 5.13]} scale={[0.25, 2.6, 0.8]} rotation={[0, Math.PI / 6, 0]} />
       <ColliderBox position={[4.6, 0, 0.1]} scale={[0.25, 2.6, 0.8]} rotation={[0, -Math.PI / 4, 0]} />
+
+      <Ramp />
     </>
   );
 };
