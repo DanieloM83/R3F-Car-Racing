@@ -23,7 +23,7 @@ const Ground = () => {
   useEffect(() => {
     if (!gridMap) return;
 
-    gridMap.anisotropy = 16;
+    gridMap.anisotropy = 32;
   }, [gridMap]);
 
   return (
@@ -38,7 +38,7 @@ const Ground = () => {
           alphaMap={alphaMap}
           aoMap={aoMap}
           transparent={true}
-          color={[0.5, 0.5, 0.5]}
+          color={[0.4, 0.3, 0.3]}
           envMapIntensity={0.35}
           metalness={0.05}
           roughness={0.4}
@@ -51,9 +51,7 @@ const Ground = () => {
           minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
           maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
           depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [bl
-          debug={0}
-          reflectorOffset={0.02} // Offsets the virtual camera that projects the reflection. Useful when the reflective
-        ></MeshReflectorMaterial>
+        />
       </mesh>
     </>
   );

@@ -1,14 +1,26 @@
 import { useBox, useRaycastVehicle } from "@react-three/cannon";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useFrame, useLoader } from "@react-three/fiber";
-import { useRef } from "react";
-import useWheels from "./useWheels";
-import useControls from "./useControls";
+import { useMemo, useRef } from "react";
+import useWheels from "../hooks/useWheels";
+import useControls from "../hooks/useControls";
 import { Quaternion, Vector3 } from "three";
 
-const Car = ({ cameraView }) => {
+const loadCar = () => {
   // children: [CarBody, WheelRF, WheelLF, WheelLB, WheelRB]
-  const result = useLoader(GLTFLoader, "models/car.glb").scene;
+  const result = useLoader(GLTFLoader, "models/car.glb").scene.clone();
+
+  return {
+    CarBody: result.children[0],
+    WheelRF: result.children[1],
+    WheelLF: result.children[2],
+    WheelLB: result.children[3],
+    WheelRB: result.children[4],
+  };
+};
+
+const Car = ({ cameraView }) => {
+  const { CarBody, WheelRF, WheelLF, WheelLB, WheelRB } = useMemo(() => loadCar(), []);
 
   const position = [-10, 3, -3];
   const rotation = [0, Math.PI / 2, 0];
@@ -72,7 +84,20 @@ const Car = ({ cameraView }) => {
   return (
     <group ref={vehicle} name="vehicle">
       <group ref={chassisBody} name="chassisBody">
-        <primitive object={result} rotation-y={-Math.PI / 2} position={[0, -0.15, 0]} />
+        <primitive object={CarBody} rotation-y={-Math.PI / 2} position={[0, -0.15, 0]} />
+      </group>
+
+      <group ref={wheels[0]} name="WheelRF">
+        <primitive object={WheelRF} rotation-y={-Math.PI / 2} position={[0, 0, 0]} />
+      </group>
+      <group ref={wheels[1]} name="WheelLF">
+        <primitive object={WheelLF} rotation-y={-Math.PI / 2} position={[0, 0, 0]} />
+      </group>
+      <group ref={wheels[2]} name="WheelRB">
+        <primitive object={WheelRB} rotation-y={-Math.PI / 2} position={[0, 0, 0]} />
+      </group>
+      <group ref={wheels[3]} name="WheelLB">
+        <primitive object={WheelLB} rotation-y={-Math.PI / 2} position={[0, 0, 0]} />
       </group>
     </group>
   );
