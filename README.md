@@ -43,7 +43,7 @@ R3F-CAR-RACING
 
 ## Get Started
 
-Try the game right in your browser! [(click me)](https://example.com)
+Try the game right in your browser! [(click me)](https://DanieloM83.github.io/R3F-Car-Racing)
 
 Ready to explore the code behind the scenes? Follow these simple steps to set up the project on your local machine:
 

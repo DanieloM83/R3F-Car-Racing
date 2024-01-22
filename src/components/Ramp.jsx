@@ -4,7 +4,7 @@ import { memo, useRef } from "react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 const Ramp = () => {
-  const result = useLoader(GLTFLoader, "/models/ramp.glb");
+  const result = useLoader(GLTFLoader, "models/ramp.glb");
 
   const geometry = result.scene.children[0].geometry;
 
