@@ -28,7 +28,7 @@ const Ground = () => {
 
   return (
     <>
-      <mesh position={[0, -0.005, 0]} rotation-x={-Math.PI / 2} ref={gridRef}>
+      <mesh position={[0, 0, 0]} rotation-x={-Math.PI / 2} ref={gridRef}>
         <planeGeometry args={[50, 50]} />
         <meshBasicMaterial opacity={0.325} alphaMap={gridMap} transparent={true} color={"white"} />
       </mesh>
